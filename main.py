@@ -12,6 +12,7 @@ def main(page: ft.Page):
     correo = ft.TextField(label="Correo Electronico")
 
     taller = ft.Dropdown(
+        label="Taller de interes",
         options=[
             ft.dropdown.Option("Python para principiantes"),
             ft.dropdown.Option("Python para intermedio"),
@@ -20,6 +21,7 @@ def main(page: ft.Page):
     )
 
     pago = ft.RadioGroup(
+        value="Pago completo",
         content=ft.Column([
             ft.Radio(value="Pago completo", label="Pago completo"),
             ft.Radio(value="Pago por cuotas", label="Pago por cuotas"),
