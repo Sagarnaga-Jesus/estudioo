@@ -1,8 +1,12 @@
 import flet as ft
 
 def main(page: ft.Page):
+    page.theme_mode = "light"
+    page.scroll = "auto"
+    page.title = "Examen Final - Registro de Participantes"
+    page.padding = 20
 
-    page.add(ft.Text("Registro de Participantes", size=30))
+    page.add(ft.Row(ft.Text("Registro de Participantes", size=30, weight=ft.FontWeight.BOLD), alignment=ft.MainAxisAlignment.CENTER))
 
     nombre = ft.TextField(label="Nombre Completo")
     correo = ft.TextField(label="Correo Electronico")
@@ -17,33 +21,37 @@ def main(page: ft.Page):
 
     pago = ft.RadioGroup(
         content=ft.Column([
-            ft.Radio(value="Tarjeta", label="Tarjeta"),
-            ft.Radio(value="Efectivo", label="Efectivo"),
+            ft.Radio(value="Pago completo", label="Pago completo"),
+            ft.Radio(value="Pago por cuotas", label="Pago por cuotas"),
         ])
     )
 
     requiere = ft.Checkbox(label="Requiere computadora portátil")
 
-    nivel = ft.Slider(label="{value}", value=1, min=1, max=5, divisions=4, width=400)
-
-    def resume(e):
-        page.add(
-            ft.Text(
-                f"""--- FICHA DEL PARTICIPANTE ---
-Nombre: {nombre.value}
-Email: {correo.value}
-Taller: {taller.value}
-Pago: {pago.value}
-Requiere Portatil: {requiere.value}
-Nivel: {nivel.value}
---- Gracias por su registro ---
-"""
-            )
-        )
+    nivel = ft.Slider(label="{value}",value=1, min=0, max=5, divisions=5, width=400., active_color="red")
+    
+    texto = ft.Text(size=16,color=ft.Colors.BLUE_900)
+    
+    def resume():
+        requiere_text = "Sí" if requiere.value else "No"
+        texto.value = f"--- FICHA DEL PARTICIPANTE ---\n Nombre: {nombre.value}\n Email: {correo.value}\n Taller: {taller.value}\n Modalidad de pago: {pago.value}\n Pago: {pago.value}\n Requiere Portatil: {requiere_text}\n Nivel: {nivel.value}\n --- Gracias por su registro --- "
         page.update()
 
-    boton = ft.ElevatedButton("Registrar", on_click=resume)
+    boton = ft.ElevatedButton("Mostrar ficha del Participante", on_click=resume, bgcolor=ft.Colors.RED_400, color=ft.Colors.WHITE)
 
-    page.add(nombre, correo, taller, pago, requiere, nivel, boton)
+    texto.on_change= resume
+    
+    page.add(ft.Column([
+            nombre, 
+            correo, 
+            taller, 
+            ft.Text("Modalidad de pago"),
+            pago, 
+            requiere, 
+            nivel,
+            ft.Row(boton, alignment=ft.MainAxisAlignment.CENTER)]
+            , spacing=15))
+    
+    page.add(texto)
 
 ft.run(main)
