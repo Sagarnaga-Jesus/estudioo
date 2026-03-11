@@ -47,12 +47,12 @@ def main(page: ft.Page):
     texto.on_change= resume
     
     page.add(ft.Column([
-            nombre,
-            correo,
-            taller,
+            nombre, 
+            correo, 
+            taller, 
             ft.Text("Modalidad de pago"),
-            pago,
-            requiere,
+            pago, 
+            requiere, 
             nivel,
             ft.Row(boton, alignment=ft.MainAxisAlignment.CENTER)]
             , spacing=15))
