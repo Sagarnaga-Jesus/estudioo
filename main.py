@@ -36,7 +36,7 @@ def main(page: ft.Page):
     
     def resume():
         requiere_text = "Sí" if requiere.value else "No"
-        texto.value = f"--- FICHA DEL PARTICIPANTE ---\n Nombre: {nombre.value}\n Email: {correo.value}\n Taller: {taller.value}\n Modalidad de pago: {pago.value}\n Pago: {pago.value}\n Requiere Portatil: {requiere_text}\n Nivel: {nivel.value}\n --- Gracias por su registro --- "
+        texto.value = f"--- FICHA DEL PARTICIPANTE ---\n Nombre: {nombre.value}\n Email: {correo.value}\n Taller: {taller.value}\n Modalidad de pago: {pago.value}\n Requiere Portatil: {requiere_text}\n Nivel: {int(nivel.value)}\n --- Gracias por su registro --- "
         nombre.value = ""
         correo.value = ""
         requiere.value = False
@@ -47,12 +47,12 @@ def main(page: ft.Page):
     texto.on_change= resume
     
     page.add(ft.Column([
-            nombre, 
-            correo, 
-            taller, 
+            nombre,
+            correo,
+            taller,
             ft.Text("Modalidad de pago"),
-            pago, 
-            requiere, 
+            pago,
+            requiere,
             nivel,
             ft.Row(boton, alignment=ft.MainAxisAlignment.CENTER)]
             , spacing=15))
